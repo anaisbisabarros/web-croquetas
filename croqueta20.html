@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Universo de la Croqueta de Jamón</title>
+    <link rel="icon" type="image/png" href="assets/img/imagen.png">
+
+    <!-- Mejoras de SEO -->
+    <meta name="description" content="Descubre la receta tradicional de las croquetas de jamón ibérico de la abuela de Anaís. Historia, técnica paso a paso y secretos para una bechamel perfecta.">
+    <meta name="keywords" content="croquetas de jamón, receta de croquetas, tapas españolas, gastronomía de España, croquetas caseras, bechamel cremosa, jamón ibérico">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:title" content="El Universo de la Croqueta de Jamón - La Receta de la Abuela">
+    <meta property="og:description" content="Aprende a cocinar las auténticas croquetas de jamón ibérico con la receta heredada de la abuela de Anaís. Técnica, historia y variantes gourmet.">
+    <meta property="og:image" content="assets/img/croquetas-de-jamon.jpeg">
+    <meta property="og:url" content="https://tudominio.com">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="El Universo de la Croqueta de Jamón">
+    <meta name="twitter:description" content="¡La alta cocina está en las casas de nuestras abuelas! Descubre el secreto de la croqueta de jamón perfecta.">
+    <meta name="twitter:image" content="assets/img/croquetas-de-jamon.jpeg">
+
+    <!-- Datos Estructurados JSON-LD para SEO (Recipe) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Recipe",
+      "name": "Croquetas de Jamón Ibérico",
+      "description": "Receta tradicional española de croquetas de jamón con bechamel cremosa y exterior crujiente.",
+      "author": {
+        "@type": "Person",
+        "name": "Las croquetas de la abuela de Anaís"
+      },
+      "recipeCuisine": "Spanish",
+      "recipeCategory": "Tapas",
+      "inLanguage": "es",
+      "recipeIngredient": [
+        "1L Leche Entera",
+        "100g Mantequilla",
+        "90g Harina",
+        "150g Jamón Ibérico",
+        "Huevo y Pan Rallado"
+      ],
+      "recipeInstructions": [
+        {
+          "@type": "HowToStep",
+          "name": "Infusión",
+          "text": "Calienta la leche con un hueso de jamón. Deja tapado 30 minutos para capturar el sabor ibérico profundo."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Mantequilla",
+          "text": "Derrite mantequilla, añade el jamón picado y luego la harina. Tuesta 4 minutos para quitar el sabor a crudo."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Cocción",
+          "text": "Añade la leche poco a poco removiendo sin parar 20 minutos hasta que se despegue de las paredes."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Reposo",
+          "text": "Viértelo en una fuente, tapa con film ¡y a la nevera 12 horas mínimo!"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Empanado",
+          "text": "Bolea la masa, pásala por harina, huevo y pan rallado. Si quieres que tu croqueta sea más crujiente repite este proceso una vez más."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Fritura",
+          "text": "Aceite muy caliente (180ºC) en tandas pequeñas. Por último escurre las croquetas en papel."
+        }
+      ]
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind Config & Custom CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        jamon: {
+                            50: '#fdf3f4',
+                            100: '#fbe4e6',
+                            500: '#d93845',
+                            700: '#9b2226',
+                            900: '#4a1114',
+                        },
+                        bechamel: {
+                            50: '#fffaeb',
+                            100: '#fdf4d6',
+                            200: '#faeab3',
+                            500: '#e09f3e',
+                            800: '#8c5e1c',
+                        },
+                        base: '#faf8f5',
+                        ink: '#3a322b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Required Chart Container Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #faf8f5; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e09f3e; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9b2226; 
+        }
+
+        /* Utility classes for interactions */
+        .tab-active {
+            background-color: #9b2226;
+            color: white;
+            border-color: #9b2226;
+        }
+        .tab-inactive {
+            background-color: transparent;
+            color: #9b2226;
+            border-color: #9b2226;
+        }
+
+        /* Side Menu Transition */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Spanish Flag Button Background */
+        .btn-espana {
+            background: linear-gradient(
+                to bottom, 
+                #AA151B 0%, #AA151B 25%, 
+                #F1BF00 25%, #F1BF00 75%, 
+                #AA151B 75%, #AA151B 100%
+            );
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            border: 2px solid #8a1116;
+        }
+    </style>
+</head>
+
+<body class="bg-base text-ink font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="text-xl md:text-2xl font-serif font-bold text-jamon-700">Las croquetas de la abuela de Anaís</a>
+                
+                <!-- Hamburger Button (Persistent on ALL screen sizes) -->
+                <button id="menu-btn" class="p-2 text-jamon-700 hover:bg-jamon-50 rounded-lg transition-colors focus:outline-none">
+                    <span class="text-3xl leading-none">☰</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global Full-screen Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-jamon-900 text-white flex flex-col items-center justify-center space-y-8 p-10">
+        <button id="close-menu" class="absolute top-6 right-6 text-5xl text-bechamel-200 hover:text-white transition focus:outline-none">×</button>
+        <div class="text-3xl font-serif font-bold space-y-6 text-center">
+            <a href="#historia" class="block hover:text-bechamel-500 transition-colors menu-link">Historia</a>
+            <a href="#cultura" class="block hover:text-bechamel-500 transition-colors menu-link">Cultura</a>
+            <a href="#receta" class="block hover:text-bechamel-500 transition-colors menu-link">Receta Clásica</a>
+            <a href="#variantes" class="block hover:text-bechamel-500 transition-colors menu-link">Variantes</a>
+            <a href="#referencias" class="block hover:text-bechamel-500 transition-colors menu-link">Referencias</a>
+        </div>
+        <div class="mt-12 pt-8 border-t border-jamon-700 w-full max-w-xs text-bechamel-100 text-sm text-center italic">
+            "¡La alta cocina esta en las casas de nuestras abuelas!"
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative text-white overflow-hidden py-24 md:py-48 bg-cover bg-center"
+            style="background-image: url('assets/img/croquetas-de-jamon.jpeg');">
+        
+        <!-- Background Overlay for Text Contrast -->
+        <div class="absolute inset-0 bg-black/50 z-0"></div>
+
+        <div class="relative max-w-4xl mx-auto px-4 text-center z-10">
+            <div class="absolute top-[-10%] left-[-10%] w-64 h-64 bg-jamon-700 rounded-full opacity-30 blur-3xl"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-bechamel-500 rounded-full opacity-10 blur-3xl"></div>
+            
+            <div class="relative">
+                <span class="text-bechamel-200 uppercase tracking-widest text-sm font-bold mb-4 block text-center">El bocado perfecto</span>
+                <h1 class="text-5xl md:text-8xl font-serif font-bold mb-6 leading-tight text-center text-white">Croquetas de Jamón</h1>
+                <p class="text-lg md:text-3xl text-stone-100 mb-10 max-w-2xl mx-auto font-light text-center">¡La alta cocina esta en las casas de nuestras abuelas!</p>
+                <a href="#historia" class="btn-espana inline-block text-white font-black py-4 px-10 rounded-full hover:scale-105 transition-all duration-300 shadow-lg transform hover:-translate-y-1 uppercase tracking-widest text-lg">SABER MÁS ⬇</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section: Historia y Origen -->
+    <section id="historia" class="py-20 px-4 max-w-6xl mx-auto text-ink">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-serif font-bold text-jamon-700 mb-4 text-center">Historia y Origen</h2>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+            <div class="flex-1 relative border-l-4 border-bechamel-500 pl-6 ml-4 md:ml-0 space-y-12">
+                <div class="relative group">
+                    <div class="absolute -left-[35px] top-1 w-6 h-6 bg-jamon-700 rounded-full border-4 border-base group-hover:bg-bechamel-500 transition-colors"></div>
+                    <h3 class="text-xl font-bold text-jamon-900">Francia, Siglo XVII</h3>
+                    <p class="text-stone-600 mt-2 font-serif leading-relaxed">Las "Croquette" que originalmente no llevaban bechamel, eran masas de carne o patata empanadas para los banquetes de Luis XIV.</p>
+                </div>
+                
+                <div class="relative group">
+                    <div class="absolute -left-[35px] top-1 w-6 h-6 bg-jamon-700 rounded-full border-4 border-base group-hover:bg-bechamel-500 transition-colors"></div>
+                    <h3 class="text-xl font-bold text-jamon-900">1817: El Toque Maestro</h3>
+                    <p class="text-stone-600 mt-2 font-serif leading-relaxed">El célebre chef francés <b>Antonín Carême</b> sirve unas <i>"croquettes à la royale"</i>, introduciendo la salsa bechamel como base.</p>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -left-[35px] top-1 w-6 h-6 bg-jamon-700 rounded-full border-4 border-base group-hover:bg-bechamel-500 transition-colors"></div>
+                    <h3 class="text-xl font-bold text-jamon-900">Llegada a España (Siglo XIX)</h3>
+                    <p class="text-stone-600 mt-2 font-serif leading-relaxed">En España, las clases populares adoptan la técnica como <b>cocina de aprovechamiento</b>. Las sobras del cocido y los recortes de jamón serrano se mezclan con bechamel para no desperdiciar nada.</p>
+                </div>
+            </div>
+            
+            <div class="flex-1 w-full bg-white p-10 rounded-2xl shadow-xl border-t-4 border-jamon-700 text-center">
+                <div class="text-7xl text-center mb-6">🇫🇷 ➔ 🇪🇸</div>
+                <h4 class="text-2xl font-bold text-jamon-700 font-serif mb-4">La Paradoja de la Croqueta</h4>
+                <p class="text-stone-700 text-center mb-6 leading-relaxed font-serif text-lg">Nació como un plato de élite en Francia, pero donde realmente alcanzó su auge cultural fue en los hogares y tascas de España.</p>
+                <div class="bg-jamon-50 p-6 rounded-lg text-sm text-jamon-900 font-bold text-center italic">
+                    "Una buena croqueta mide la calidad de un restaurante español y el amor de una abuela."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Cultura -->
+    <section id="cultura" class="py-20 px-4 bg-stone-100 border-y border-stone-200 text-ink">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-serif font-bold text-jamon-700 mb-4 text-center">Tradición y Cultura</h2>
+                <p class="text-lg text-stone-600 max-w-3xl mx-auto text-center font-serif leading-relaxed">En España, la croqueta es religión. Forma parte fundamental de la "Cultura del Tapeo" y el "Día Internacional de la Croqueta" se celebra cada 16 de enero.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-10 items-center">
+                <div class="flex-1 w-full">
+                    <h3 class="text-2xl font-bold text-ink mb-6 text-center">Las Preferidas de España</h3>
+                    <div class="chart-container bg-white p-6 rounded-2xl shadow-md border border-stone-200">
+                        <canvas id="croquetaChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="flex-1 space-y-6 w-full">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border-l-4 border-bechamel-500">
+                        <h4 class="font-bold text-2xl text-jamon-900 mb-2">El Tapeo</h4>
+                        <p class="text-stone-600 font-serif text-lg leading-relaxed">La croqueta es la reina indiscutible del bar. Una ración acompañada de una caña es el estándar de oro de la socialización española.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border-l-4 border-bechamel-500">
+                        <h4 class="font-bold text-2xl text-jamon-900 text-ink">La receta de nuestras abuelas</h4>
+                        <p class="text-stone-600 mt-2 font-serif text-lg leading-relaxed">Casi nadie usa proporciones exactas. La textura se mide "a ojo" y cada familia defiende que la receta de su abuela es insuperable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: La Receta Clásica -->
+    <section id="receta" class="py-20 px-4 max-w-6xl mx-auto text-ink">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-serif font-bold text-jamon-700 mb-4 text-center">La Receta: Croqueta de Jamón Ibérico</h2>
+            <p class="text-lg text-stone-600 max-w-3xl mx-auto text-center font-serif leading-relaxed">El equilibrio perfecto entre un exterior crujiente y un interior fluido casi líquido. ¡Vamos a explorar paso a paso el secreto de esta elaboración!</p>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-stone-100 flex flex-col md:flex-row">
+            <div class="w-full md:w-1/3 bg-jamon-50 p-8 border-r border-jamon-100">
+                <h3 class="text-2xl font-bold text-jamon-900 mb-6 border-b border-jamon-200 pb-2 font-serif text-center md:text-left">Ingredientes Clave</h3>
+                <ul class="space-y-4 font-serif text-lg">
+                    <li class="flex items-center gap-3"><span class="text-2xl">🥛</span> 1L Leche Entera</li>
+                    <li class="flex items-center gap-3"><span class="text-2xl">🧈</span> 100g Mantequilla</li>
+                    <li class="flex items-center gap-3"><span class="text-2xl">🌾</span> 90g Harina</li>
+                    <li class="flex items-center gap-3"><span class="text-2xl">🍖</span> 150g Jamón Ibérico</li>
+                    <li class="flex items-center gap-3"><span class="text-2xl">🥚</span> Huevo y Pan Rallado</li>
+                </ul>
+            </div>
+
+            <div class="w-full md:w-2/3 p-8">
+                <div class="flex flex-wrap gap-2 mb-8 border-b border-stone-200 pb-4 justify-center md:justify-start" id="recipe-tabs"></div>
+                <div id="recipe-content" class="min-h-[250px]"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Variantes -->
+    <section id="variantes" class="py-20 px-4 bg-jamon-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-bechamel-500 mb-4 text-center">Variantes</h2>
+                <p class="text-lg text-stone-300 max-w-3xl mx-auto text-center font-serif leading-relaxed">La técnica de la bechamel permite infinitas posibilidades de sabor.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-ink">
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition cursor-pointer text-ink">
+                    <div class="text-5xl mb-4 text-center">🐟</div>
+                    <h3 class="text-xl font-bold text-jamon-900 mb-2 text-center font-serif">De Bacalao</h3>
+                    <p class="text-stone-600 text-sm text-center font-serif leading-snug">Clásica del norte con ajo y perejil.</p>
+                </div>
+                <div class="bg-white text-ink p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition cursor-pointer text-ink">
+                    <div class="text-5xl mb-4 text-center">🍲</div>
+                    <h3 class="text-xl font-bold text-jamon-900 mb-2 text-center font-serif">De Cocido</h3>
+                    <p class="text-stone-600 text-sm text-center font-serif leading-snug">La original de aprovechamiento.</p>
+                </div>
+                <div class="bg-white text-ink p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition cursor-pointer text-ink">
+                    <div class="text-5xl mb-4 text-center">🍄</div>
+                    <h3 class="text-xl font-bold text-jamon-900 mb-2 text-center font-serif text-ink">De Boletus</h3>
+                    <p class="text-stone-600 text-sm text-center font-serif leading-snug">Sabor gourmet.</p>
+                </div>
+                <div class="bg-white text-ink p-6 rounded-2xl shadow-lg hover:-translate-y-2 transition cursor-pointer text-ink">
+                    <div class="text-5xl mb-4 text-center">🧀</div>
+                    <h3 class="text-xl font-bold text-jamon-900 mb-2 text-center font-serif">Queso Azul</h3>
+                    <p class="text-stone-600 text-sm text-center font-serif leading-snug">Contraste potente con nueces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Maestros -->
+    <section id="referencias" class="py-20 px-4 max-w-6xl mx-auto text-ink">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-serif font-bold text-jamon-700 mb-4 text-center">Referencias: Aprende con los Maestros</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto text-center">
+            <div class="bg-white border border-stone-200 rounded-3xl overflow-hidden shadow-lg flex flex-col p-8">
+                <div class="h-16 flex items-center justify-center text-red-600 text-6xl mb-4">▶️</div>
+                <h3 class="text-2xl font-bold text-ink mb-6 font-serif">Alberto Chicote</h3>
+                <button onclick="window.open('https://www.tiktok.com/@thechefs/video/7340404541373877536', '_blank')" 
+                        class="mt-auto bg-jamon-700 text-white font-bold py-3 px-6 rounded-xl hover:bg-jamon-900 transition">
+                    Buscar Video
+                </button>
+            </div>
+            <div class="bg-white border border-stone-200 rounded-3xl overflow-hidden shadow-lg flex flex-col p-8">
+                <div class="h-16 flex items-center justify-center text-orange-500 text-6xl mb-4">▶️</div>
+                <h3 class="text-2xl font-bold text-ink mb-6 font-serif">Karlos Arguiñano</h3>
+                <button onclick="window.open('https://www.youtube.com/watch?v=dfVkya5_iYQ', '_blank')" 
+                        class="mt-auto bg-jamon-700 text-white font-bold py-3 px-6 rounded-xl hover:bg-jamon-900 transition">
+                    Buscar Video
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ink text-stone-300 py-12 border-t-4 border-bechamel-500 font-serif">
+        <div class="max-w-6xl mx-auto px-4">
+            <p class="font-serif italic mb-2 text-white text-xl text-center">"¡La alta cocina esta en las casas de nuestras abuelas!"</p>
+            
+            <!-- Datos de contacto -->
+            <div class="mt-8 flex flex-col items-center space-y-4 text-lg">
+                <a href="tel:+34123456679" class="hover:text-bechamel-500 transition-colors flex items-center gap-3 text-white">
+                    <span class="text-bechamel-500">📞</span> +34 123 456 679
+                </a>
+                <a href="mailto:croquetasdelaabuela@gmail.com" class="hover:text-bechamel-500 transition-colors flex items-center gap-3 text-white">
+                    <span class="text-bechamel-500">✉️</span> croquetasdelaabuela@gmail.com
+                </a>
+                <div class="flex items-center gap-3 text-white">
+                    <span class="text-bechamel-500">📍</span> España
+                </div>
+            </div>
+
+            <!-- Sección Legal y Créditos -->
+            <div class="mt-12 flex flex-col md:flex-row justify-between items-center md:items-end border-t border-stone-800 pt-8 gap-8">
+                <!-- Enlaces Legales (A la izquierda, centrados en su bloque, tamaño pequeño) -->
+                <div class="flex flex-col items-center md:items-start text-xs space-y-2 opacity-50 text-center md:text-left">
+                    <a href="#" class="hover:text-white transition-colors">Aviso legal</a>
+                    <a href="#" class="hover:text-white transition-colors">Política de Privacidad</a>
+                    <a href="#" class="hover:text-white transition-colors">Política de cookies</a>
+                </div>
+                
+                <div class="text-sm opacity-60 text-center md:text-right">
+                    Investigación Gastronómica • Arquitectura de Información Interactiva
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- MENU LOGIC ---
+            const menuBtn = document.getElementById('menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuLinks = document.querySelectorAll('.menu-link');
+
+            const toggleMenu = () => {
+                mobileMenu.classList.toggle('open');
+                document.body.classList.toggle('overflow-hidden');
+            };
+
+            menuBtn.addEventListener('click', toggleMenu);
+            closeMenuBtn.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // --- CHART LOGIC ---
+            const ctx = document.getElementById('croquetaChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Jamón Ibérico', 'Bacalao', 'Cocido', 'Boletus', 'Otros'],
+                    datasets: [{
+                        data: [65, 15, 8, 7, 5],
+                        backgroundColor: ['#9b2226', '#e09f3e', '#8c5e1c', '#5c4033', '#cbd5e1'],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { position: 'bottom' },
+                        tooltip: { backgroundColor: 'rgba(58, 50, 43, 0.9)' }
+                    }
+                }
+            });
+
+            // --- RECIPE LOGIC ---
+            const recipeSteps = [
+                { title: '1. Infusión', icon: '🥛', content: 'Calienta la leche con un hueso de jamón. Deja tapado 30 minutos para capturar el sabor ibérico profundo.' },
+                { title: '2. Mantequilla', icon: '🧈', content: 'Derrite mantequilla, añade el jamón picado y luego la harina. Tuesta 4 minutos para quitar el sabor a crudo.' },
+                { title: '3. Cocción', icon: '🥣', content: 'Añade la leche poco a poco removiendo sin parar 20 minutos hasta que se despegue de las paredes.' },
+                { title: '4. Reposo', icon: '❄️', content: 'Viértelo en una fuente, tapa con film ¡y a la nevera 12 horas mínimo!' },
+                { title: '5. Empanado', icon: '🥚', content: 'Bolea la masa, pásala por harina, huevo y pan rallado. Si quieres que tu croqueta sea más crujiente repite este proceso una vez más.' },
+                { title: '6. Fritura', icon: '🔥', content: 'Aceite muy caliente (180ºC) en tandas pequeñas. Por último escurre las croquetas en papel.' }
+            ];
+
+            const tabsContainer = document.getElementById('recipe-tabs');
+            const contentContainer = document.getElementById('recipe-content');
+
+            function updateContent(step) {
+                contentContainer.innerHTML = `
+                    <div class="flex items-center gap-6 bg-stone-50 p-8 rounded-2xl h-full border border-stone-200 shadow-inner animate-fade-in font-serif">
+                        <div class="text-6xl hidden sm:block">${step.icon}</div>
+                        <div>
+                            <h4 class="text-2xl font-bold text-jamon-900 mb-2">${step.title}</h4>
+                            <p class="text-lg text-stone-700 leading-relaxed text-ink">${step.content}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            recipeSteps.forEach((step, index) => {
+                const btn = document.createElement('button');
+                btn.className = `px-4 py-2 rounded-full border-2 font-bold transition-all text-xs md:text-sm ${index === 0 ? 'tab-active' : 'tab-inactive hover:bg-jamon-50'}`;
+                btn.textContent = step.title;
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#recipe-tabs button').forEach(b => {
+                        b.classList.remove('tab-active');
+                        b.classList.add('tab-inactive', 'hover:bg-jamon-50');
+                    });
+                    btn.classList.add('tab-active');
+                    btn.classList.remove('tab-inactive', 'hover:bg-jamon-50');
+                    updateContent(step);
+                });
+                tabsContainer.appendChild(btn);
+            });
+
+            updateContent(recipeSteps[0]);
+        });
+    </script>
+</body>
+</html>
